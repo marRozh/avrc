@@ -1,0 +1,98 @@
+<%- include('partials/header'); -%>
+<%- include('partials/subnav'); -%>
+
+<div class="jumbotron" id="article">
+    <div id="article-container">
+        <div class="scroll-to-top">
+            <button class="circular ui icon button back-to-top">
+                <i class="arrow up icon"></i>
+            </button>
+        </div>
+        <div class="back-to-previous-page">
+            <button class="ui button go-back">
+                <i class="arrow left icon"></i>Back
+            </button>
+        </div>
+
+        <div class="row" id="index-left-container">
+            
+                <form action="/editarticle/<%= article.id %>?_method=PUT" method="POST">
+                    <% if(currentUser) { %>
+                        <i id="article-page-edit-button" class="edit-page-icon pencil alternate icon"></i>
+                    <% } %>
+                    <div id="index-title-image">
+                            <div class="row">
+                                <h1 class="edit-article-page-item"><%- article.title -%></h1>
+                                <label class="edit-article-page-form hidden">Article Title</label>
+                                <textarea style="font-size:2rem;"rows="1" class="form-control edit-article-page-form hidden" name="article[title]"><%= article.title %></textarea>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2" id="written-by">
+                            <img class="edit-article-page-item ui avatar image" id="article-author-img-<%= article.alias %>" src="<%= article.photo %>">
+                            <p class="edit-article-page-item"> <%- article.writtenBy -%></p>
+                            <label class="edit-article-page-form hidden">Article Author</label>
+                            <textarea rows="1" class="form-control edit-article-page-form hidden" id="article-written-by" name="article[writtenBy]"><%= article.writtenBy %></textarea>
+                            
+                            <!--<label class="edit-article-page-form hidden">Article Author IMG</label>
+                            <input class="form-control edit-article-page-form hidden" value="<%= article.photo %>" name="article[photo]"></input>-->
+
+                            <p class="edit-article-page-item" id="article-short-intro"><%- article.short -%></p>
+                            <label class="edit-article-page-form hidden">Article Short Description</label>
+                            <textarea rows="4" class="form-control edit-article-page-form hidden" name="article[short]"><%- article.short -%></textarea>
+                        </div>
+                        <div class="col-lg-8" id="index-main-text-container">
+                            <img class="article-image edit-article-page-item" id="article-image-<%= article.alias %>" src='<%= article.img %>'>
+                            <!--<label class="edit-article-page-form hidden">Article IMG</label>
+                            <input class="form-control edit-article-page-form hidden" value="<%= article.img %>" name="article[img]">-->
+                            <div class="edit-article-page-item" id="index-main-text">
+                                <%- article.text -%>
+                            </div>
+                            <label class="edit-article-page-form hidden">Article Text</label>
+                            <textarea rows="40" class="form-control edit-article-page-form hidden" name="article[text]"><%= article.text %></textarea>
+
+                            <!--<label class="edit-article-page-form hidden">First 200</label>
+                            <textarea rows="5" class="form-control edit-article-page-form hidden" name="article[plainText]"><%= article.plainText %></textarea>-->
+                            <% if(article.alias == 'feature') { %>
+                                <div id="breakin-video">
+                                    <iframe src="https://www.youtube.com/embed/j39NpHHtrlk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                    <iframe src="https://www.youtube.com/embed/XsRWJyguWZo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            <% } %>
+                        </div>
+                    <div class="col-lg-2" id="index-profiles-container">
+                        <div id="index-right-container">
+                            <div class="ui raised segment">
+                                <div id="index-side-container">
+                                    <h3>Profiles In Depth</h3>
+                                    <% personas.forEach(function(persona) { %>
+                                        <div class="profile-summary">
+                                            <hr>
+                                            <a href="/profile/<%= persona.namelink %>"><h6><%= persona.name %></h6></a>
+                                            <div class="profile-summary-info">
+                                                <a href="/profile/<%= persona.namelink %>"><img src="<%= persona.img %>"></a>
+                                                <a href="/profile/<%= persona.namelink %>"><p><%= persona.aboutPlain.substring(0, 142) %>..</p></a>
+                                            </div>
+                                            <hr>
+                                        </div>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                    <button class="btn btn-success edit-article-page-form hidden" id="article-save-changes-button">Save</button>
+                </form>
+            
+        </div>
+
+        
+
+          
+    </div>
+
+
+
+
+<%- include('partials/footer'); -%>

@@ -1,0 +1,149 @@
+<%- include('partials/header'); -%>
+<%- include('partials/mainnav'); -%>
+
+<div class="jumbotron" id="index">
+    <div id="index-container">
+        <div class="row">
+            <div class="col-lg-9" id="index-left-container">
+                        <!--
+                        <% if(currentUser) { %>
+                            <i id="index-page-article-heading-edit-button" class="edit-page-icon pencil alternate icon"></i>
+                        <% } %>-->
+                        <h1 class="edit-article-heading-item"><%= titlepage.titlePlain %></h1>
+                        <!--
+                        <form class="edit-article-heading-form hidden" action="/editarticle/<%= titlepage.id %>?_method=PUT" method="POST">
+                            <textarea class="form-control" name="article[title]"><%= titlepage.title %></textarea>
+                            <button class="save-changes btn btn-success">Save</i></button>
+                        </form>-->
+
+                        <div id="bullet-points">
+                            <div class="bullet-points-container">
+                                <% bullets.forEach(function(bullet) { %>
+                                    <div class="bullet-point">
+                                        <i class="bullet-point-icon circle icon"></i>
+                                        <p class="edit-article-bullet-item" id="bullet-<%= bullet.id %>"><%= bullet.title %></p>
+                                        <form id="edit-bullet-form-<%=bullet.id %>" class="hidden" action="/editarticle/<%= bullet.id %>?_method=PUT" method="POST">
+                                            <textarea rows="1" class="form-control" name="article[title]"><%= bullet.title %></textarea>
+                                            <button class="save-changes btn btn-success">Save</button>
+                                        </form>
+                                        <% if(currentUser) { %>
+                                            <i id="<%= bullet.id %>" class="bullet-page-edit-button edit-page-icon pencil alternate icon"></i>
+                                        <% } %>
+                                   </div>
+                                <% }) %>
+                            </div>
+                        </div>
+  
+
+                        <div class="row" id="index-title-image">
+                            <div class="col-md">
+                                <img id="article-image" src="/images/breakin.jpg">             
+                                <a href="/breakin"><p id="index-title-image-caption">Mescheryakov breaking in on 26th August 2020, when the server and data went missing</p></a>
+                            </div>
+                        </div>
+
+                        <hr> 
+
+                        <form action="/editarticle/<%= titlepage.id %>?_method=PUT" method="POST">
+                            <div class="row" id="index-title-content">
+                                <!--<% if(currentUser) { %>
+                                    <i id="index-page-article-text-edit-button" class="edit-page-icon pencil alternate icon"></i>
+                                <% } %>-->
+                                    <div class="col-lg-3" id="article-author">
+                                        <div id="article-author-details">
+                                            <img class="ui circular image edit-article-text-item" src="/images/journalist1.jpg">
+                                            <p class="edit-article-text-item"><%= titlepage.writtenByPlain %></p>
+                                            <!--<textarea rows="1" class="form-control edit-article-text-form hidden" name="article[writtenBy]"><%= titlepage.writtenBy %></textarea>-->
+                                        </div>
+                                        <p class="edit-article-text-item" id="article-short-intro"><%= titlepage.shortPlain %> </p>
+                                        <!--<textarea rows="4" class="form-control edit-article-text-form hidden" name="article[short]"><%= titlepage.short %></textarea>-->
+                                    </div>
+                                    <div class="col-lg-9" id="index-main-text-container">
+                                        <div class="edit-article-text-item" id="index-main-text"><p><%= titlepage.textPlain.substring(0, 860) %> </p><br></div>
+                                        <a href="/article/<%= titlepage.id %>" class="small-link">read more</a>
+                                        <!--<textarea rows="16" class="form-control edit-article-text-form hidden" name="article[text]"><%= titlepage.text %></textarea>-->
+                                    </div>
+                            </div>
+                            <!--<button class="save-changes btn btn-success edit-article-text-form hidden">Save</button>-->
+                        </form>
+                    
+            </div>
+            <div class="col-lg-3" id="index-right-container">
+                <div class="ui raised segment row">
+                    <div class="col-lg" id="index-side-container">
+                        <h3>Profiles In Depth</h3>
+                        <p class="profiles-in-depth-description">We take a behind-the-scenes look at the Dodgy Deals of the people calling for a KPMG investigation.</p>                
+                        <% personas.forEach(function(persona) { %>
+                            <div class="profile-summary">
+                                <hr>
+                                <a href="/profile/<%= persona.namelink %>"><h6><%= persona.name %></h6></a>
+                                <div class="profile-summary-info">
+                                    <a href="/profile/<%= persona.namelink %>"><img src="<%= persona.img %>"></a>
+                                    <a href="/profile/<%= persona.namelink %>"><p><%= persona.aboutPlain.substring(0, 100) %>..</p></a>
+                                </div>       
+                                
+                            </div>       
+                        <% }) %>    
+                        
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg" id="baseball">
+                        <img src="/images/baseball3.png">
+                    </div>
+                </div>
+            </div>
+        </div>
+          
+
+        <form action="/editarticle/<%= breakin.id %>?_method=PUT" method="POST">
+            <div class="ui segment" id="index-feature-article">
+                <!--<% if(currentUser) { %>
+                    <i id="index-page-feature-edit-button" class="edit-page-icon pencil alternate icon"></i>
+                <% } %>-->
+                
+                        <div class="row">
+                            <div class="col-lg-2" id="index-feature-left">
+                                <h2 class="edit-feature-item"><%= breakin.titlePlain %></h2>
+                                <!--<textarea style="font-size:1.5rem;"rows="4" class="form-control edit-feature-form hidden" name="article[title]"><%= breakin.title %></textarea>-->
+                            </div>
+                            <div class="col-lg-9" id="index-feature-right">
+                                <div class="col-box">
+                                    <hr>
+                                    <div id="feature-article-container-main-text">
+                                        <div id="feature-article-main-text" class="edit-feature-item"><p><%= breakin.textPlain %></p></div>
+                                        <!--<textarea rows="12" class="form-control edit-feature-form hidden" name="article[text]"><%= breakin.text %></textarea>-->
+                                    </div>
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        
+                <button class="save-changes btn btn-primary edit-feature-form hidden">Save</button>
+            </div>
+        </form>
+
+        <div class="row pt-3 pb-3" id="index-articles-container-top">
+                <% articles.forEach(function(article) { %>
+                    <div class="bordered-cols col-lg">
+                        <a href="/article/<%= article.id %>" class="title-link"><img src="<%= article.img %>"></a>
+                        <a href="/article/<%= article.id %>" class="title-link"><h3><%= article.titlePlain %></h3></a>
+                        <p><%= article.textPlain.substring(0, 200) %>..</p>
+                        <a href="/article/<%= article.id %>" class="small-link">read more</a>
+                    </div>
+                <% }) %>
+                 <div class="col-lg">
+                    <a href="https://www.thetimes.co.uk/article/strengthen-boards-to-protect-shareholders-from-power-of-activists-0fb8r5c3d?shareToken=2fc948cbbd99baf5b6523b0f7d6602a2" target="_blank" class="title-link"><img src="/images/fourth-article.png"></a>
+                    <a href="https://www.thetimes.co.uk/article/strengthen-boards-to-protect-shareholders-from-power-of-activists-0fb8r5c3d?shareToken=2fc948cbbd99baf5b6523b0f7d6602a2" target="_blank"  class="title-link"><h3>Strong boards are vital to protect shareholders from activist onslaught</h3></a>
+                    <p>As a non-executive director of Petropavlovsk, a leading Russian gold miner and London listed member of the FTSE 250, I have been a ringside witness to changes of board control...</p>
+                        
+                    <a href="https://www.thetimes.co.uk/article/strengthen-boards-to-protect-shareholders-from-power-of-activists-0fb8r5c3d?shareToken=2fc948cbbd99baf5b6523b0f7d6602a2" target="_blank" class="small-link">read more</a>
+                    
+                </div>
+        </div>
+    </div>
+
+
+
+
+<%- include('partials/footer'); -%>

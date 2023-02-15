@@ -1,0 +1,99 @@
+<%- include('partials/header'); -%>
+<%- include('partials/subnav'); -%>
+
+<div class="jumbotron" id="persona">
+    <div id="persona-container">
+        <div class="scroll-to-top">
+            <button class="circular ui icon button back-to-top">
+                <i class="arrow up icon"></i>
+            </button>
+        </div>
+        <div class="back-to-previous-page">
+            <button class="ui button go-back">
+                <i class="arrow left icon"></i>Back
+            </button>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-9" id="index-left-container">
+                <form action="/editpersona/<%= persona.id %>?_method=PUT" method="POST">
+                    <% if(currentUser) { %>
+                        <i id="persona-page-edit-button" class="edit-page-icon pencil alternate icon"></i>
+                    <% } %>
+                    <div class="row" id="index-title-image">
+                        <div class="col-7">
+                            <div>
+                                <h1 class="edit-persona-page-item"><%= persona.name %></h1>
+                                <label class="edit-persona-page-form hidden">Name</label>
+                                <textarea style="font-size:2rem;" rows="1" class="form-control edit-persona-page-form hidden" name="persona[name]"><%= persona.name %></textarea>
+                            </div>
+                        </div>
+                        <div class="col-5" id="persona-image-container">
+                            <img class="edit-persona-page-item" id="article-image" src="<%= persona.img %>">
+                            <!--<input class="form-control edit-persona-page-form hidden" value="<%= persona.img %>" name="persona[img]">-->
+                        </div>
+                    </div>
+                    <div class="row" id="index-main-text-container">
+                        <div class="col-lg pt-4 pb-4">
+                            <div class="edit-persona-page-item" id="index-main-text">
+                                <%- persona.about -%>
+                            </div>
+                            <label class="edit-persona-page-form hidden">Main Text</label>
+                            <textarea rows="20" class="form-control edit-persona-page-form hidden" name="persona[about]"><%= persona.about %></textarea>
+
+                            <% if (persona.additional) { %>
+                            <div class="persona-additional-info-container">
+                                <h5 class="edit-persona-page-item">To see more information on <%= persona.name %>, please <span id="<%= persona.id %>" class="persona-additional-information">click here</span></h5>
+                            </div>
+                            <% } %>
+
+                            <label class="edit-persona-page-form hidden">Additional information</label>
+                            <textarea style="font-size:1rem;"rows="50" class="form-control edit-persona-page-form hidden" name="persona[additional]"><%= persona.additional %></textarea>
+
+
+                            <div id="persona-additional-info-<%= persona.id %>" class="persona-additional-info-container-text hidden">
+                                <div class="close-additional-info-button ui button" id="additional-info-<%= persona.id %>">
+                                    Close
+                                </div>
+                                <h2><%= persona.name %> - Further Information</h2>
+                                <div class="additional-info-text">
+                                    <%- persona.additional -%>
+                                </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <button class="save-changes btn btn-success edit-persona-page-form hidden">Save</button>
+                </form>
+            </div>
+            <div class="col-lg-3" id="index-right-container">
+                <div class="ui raised segment row">
+                    <div class="col-lg" id="index-side-container">
+                        <h3>Profiles In Depth</h3>
+                        <% personas.forEach(function(persona) { %>
+                            <div class="profile-summary">
+                                <hr>
+                                <a href="/profile/<%= persona.namelink %>"><h6><%= persona.name %></h6></a>
+                                <div class="profile-summary-info">
+                                    <a href="/profile/<%= persona.namelink %>"><img src="<%= persona.img %>"></a>
+                                    <a href="/profile/<%= persona.namelink %>"><p id="profile-short-summary"><%= persona.aboutPlain.substring(0, 142) %>..</p></a>
+                                </div>
+                                <hr>
+                            </div>
+                        <% }) %>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <div class="col-lg" id="baseball">
+                        <img src="/images/baseball-short.jpg">
+                    </div>
+                </div>-->
+            </div>
+        </div>
+          
+    </div>
+
+
+
+
+<%- include('partials/footer'); -%>
